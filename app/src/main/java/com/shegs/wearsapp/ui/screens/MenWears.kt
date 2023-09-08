@@ -13,11 +13,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -37,6 +39,10 @@ fun MenWearsScreen(){
         )
     }
 
+    val matrix = remember{
+        ColorMatrix()
+    }
+
     val pagerState = rememberPagerState()
 
     Scaffold(
@@ -53,6 +59,15 @@ fun MenWearsScreen(){
                 animationSpec = tween(durationMillis = 300),
                 label = "images"
             )
+
+            LaunchedEffect(key1 = imageSize){
+                if (pageOffset != 0.0f) {
+                    matrix.setToSaturation(0f)
+                }else{
+                    matrix.setToSaturation(1f)
+                }
+            }
+
             Image(
                 painter = painterResource(id = images[index]),
                 contentDescription = "Image",
@@ -64,7 +79,8 @@ fun MenWearsScreen(){
                         scaleX = imageSize
                         scaleY = imageSize
                     },
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                colorFilter = ColorFilter.colorMatrix(matrix)
             )
         }
 
