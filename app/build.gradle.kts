@@ -51,7 +51,15 @@ android {
 
 dependencies {
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    /// PageView
+    implementation ("com.google.accompanist:accompanist-pager:0.27.1")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.27.1")
+
+    /// Lottie
+    val lottieVersion = "5.2.0"
+    implementation ("com.airbnb.android:lottie-compose:$lottieVersion")
+
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha08")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
