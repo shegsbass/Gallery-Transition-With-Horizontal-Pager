@@ -1,13 +1,10 @@
 package com.shegs.wearsapp.ui.screens
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,8 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -28,6 +29,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.shegs.wearsapp.R
 import com.shegs.wearsapp.data.listData
 import kotlinx.coroutines.launch
 
@@ -69,12 +71,18 @@ fun GetStartedScreen(navController: NavController) {
                     )
                     Text(
                         listData[page].title,
-                        style = MaterialTheme.typography.titleLarge,
+                        fontSize = 24.sp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        textAlign = TextAlign.Center,
+                        fontFamily = FontFamily(Font(R.font.rubik_bold)),
+                        fontWeight = FontWeight(600)
                     )
                     Box(modifier = Modifier.height(24.dp))
                     Text(
                         listData[page].desc,
                         style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        fontFamily = FontFamily(Font(R.font.rubik_regular)),
                         textAlign = TextAlign.Center,
                     )
                 }
@@ -94,7 +102,7 @@ fun GetStartedScreen(navController: NavController) {
                             .height(10.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(
-                                if (i == selectedPage) Color.Red else Color.Blue.copy(
+                                if (i == selectedPage) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.secondaryContainer.copy(
                                     alpha = 0.1f
                                 )
                             )
@@ -117,9 +125,13 @@ fun GetStartedScreen(navController: NavController) {
                                 pagerState.animateScrollToPage(listData.size - 1)
                             }
                         },
-                        modifier = Modifier.height(56.dp)
+                        modifier = Modifier.height(52.dp)
                     ) {
-                        Text(text = "Skip")
+                        Text(
+                            text = "Skip",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            fontFamily = FontFamily(Font(R.font.rubik_regular))
+                        )
                     }
 
                     Button(
@@ -130,9 +142,15 @@ fun GetStartedScreen(navController: NavController) {
                                 pagerState.animateScrollToPage(nextPage)
                             }
                         },
+                        colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimaryContainer),
                         modifier = Modifier.height(56.dp)
+                            .clip(RoundedCornerShape(24.dp))
                     ) {
-                        Text(text = "Next")
+                        Text(
+                            text = "Next",
+                            color = Color.White,
+                            fontFamily = FontFamily(Font(R.font.rubik_regular))
+                        )
                     }
                 }
             }
@@ -142,15 +160,18 @@ fun GetStartedScreen(navController: NavController) {
                 Button(
                     onClick = {
                               navController.navigate("tabScreen")
-                        Log.d("Navigation", "Navigating to tabScreen")
                     },
+                    colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimaryContainer),
                     modifier = Modifier
                         .padding(16.dp)
                         .fillMaxWidth()
-                        .height(56.dp)
-                        .clip(RoundedCornerShape(16.dp))
+                        .height(52.dp)
+                        .clip(RoundedCornerShape(12.dp))
                 ) {
-                    Text(text = "Get Started")
+                    Text(
+                        text = "Get Started",
+                        color = Color.White
+                    )
                 }
             }
         }
